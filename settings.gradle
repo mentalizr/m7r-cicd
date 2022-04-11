@@ -1,2 +1,5 @@
 rootProject.name = 'm7r-cicd'
 
+includeBuild('../m7r-commons')
+
+
