@@ -10,12 +10,11 @@ public class AppInit {
 
     public static void execute() {
         initLogging();
-
     }
 
     private static void initLogging() {
         M7rCicdLogFile m7rCicdLogFile = M7rCicdLogFile.createInstance();
-        Path logFile = m7rCicdLogFile.asPath().resolve("m7r-cicd.log");
+        Path logFile = m7rCicdLogFile.asPath();
         LoggerInit.consoleAndFile(logFile, Level.DEBUG, Level.OFF);
     }
 

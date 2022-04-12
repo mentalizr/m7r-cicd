@@ -1,0 +1,21 @@
+package org.mentalizr.cicd.build.gradle;
+
+public enum GradleTask {
+
+    BUILD("build"),
+    JAR("jar"),
+    FATJAR("fatJar"),
+    EXTRACT_DEPENDENCIES("extractDependencies"),
+    CLEAN("clean");
+
+    private final String gradleTaskLiteral;
+
+    private GradleTask(String gradleTaskLiteral) {
+        this.gradleTaskLiteral = gradleTaskLiteral;
+    }
+
+    public String asLiteral() {
+        return this.gradleTaskLiteral;
+    }
+
+}
