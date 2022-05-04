@@ -1,8 +1,9 @@
-package org.mentalizr.cicd.build.project;
+package org.mentalizr.cicd.build.project.gradle;
 
 import de.arthurpicht.taskRunner.task.TaskExecutionException;
 import org.mentalizr.cicd.build.BuildException;
 import org.mentalizr.cicd.build.gradle.Gradle;
+import org.mentalizr.cicd.build.project.Project;
 import org.mentalizr.cicd.utils.FileHelper;
 
 import java.nio.file.Path;

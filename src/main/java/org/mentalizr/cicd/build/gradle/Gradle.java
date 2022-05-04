@@ -1,23 +1,13 @@
 package org.mentalizr.cicd.build.gradle;
 
-import de.arthurpicht.processExecutor.ProcessExecutionException;
-import de.arthurpicht.processExecutor.ProcessExecutor;
-import de.arthurpicht.processExecutor.ProcessExecutorBuilder;
-import de.arthurpicht.processExecutor.ProcessResultCollection;
-import de.arthurpicht.processExecutor.outputHandler.generalOutputHandler.GeneralStandardErrorHandler;
-import de.arthurpicht.processExecutor.outputHandler.generalOutputHandler.GeneralStandardOutHandler;
-import de.arthurpicht.utils.core.strings.Strings;
 import de.arthurpicht.utils.io.nio2.FileUtils;
-import org.mentalizr.cicd.ExecutionContext;
-import org.mentalizr.cicd.build.BuildContext;
 import org.mentalizr.cicd.build.BuildException;
+import org.mentalizr.cicd.build.BuildProcess;
 import org.mentalizr.cicd.utils.FileHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
 
 public class Gradle {
 
@@ -55,108 +45,56 @@ public class Gradle {
     }
 
     private static void executeGradleWrapper(Path projectDir, GradleTask gradleTask) throws BuildException {
-        if (!FileUtils.isExistingDirectory(projectDir))
-            throw new BuildException("Project directory not found: [" + projectDir.toAbsolutePath() + "].");
-        if (!FileHelper.containsFile(projectDir, "build.gradle"))
-            throw new BuildException("build.gradle not found in project directory: [" + projectDir.toAbsolutePath() + "].");
+        assertProjectDir(projectDir);
+        assertBuildGradleFile(projectDir);
 
-        BuildContext buildContext = ExecutionContext.getGradleExecutionContext();
+        BuildProcess.execute(
+                projectDir,
+                new String[]{getGradleWrapperCommandAbsolute(projectDir), "--console=plain", gradleTask.asLiteral()},
+                logger,
+                "Gradle build failed."
+        );
 
-        String gradleCommand = projectDir.resolve("gradlew").toAbsolutePath().toString();
-        gradleCommand += " --console=plain " + gradleTask.asLiteral();
-        String[] commands = {"bash", "-c", gradleCommand};
-
-        userOutput(buildContext, commands);
-        ProcessResultCollection result;
-
-        try{
-            result = executeProcess(
-                    projectDir,
-                    buildContext.getLogger(),
-                    buildContext.isVerbose(),
-                    commands
-            );
-        } catch (ProcessExecutionException e) {
-            throw new BuildException("Gradle build failed: " + e.getMessage(), e);
-        }
-        if (result.isFail()) throw createException(result);
+//        String[] commands = {"bash", "-c", gradleCommand};
     }
 
     private static void installGradleWrapper(Path projectDir) throws BuildException {
-        if (!FileUtils.isExistingDirectory(projectDir))
-            throw new BuildException("Project directory not found: [" + projectDir.toAbsolutePath() + "].");
-        if (!FileHelper.containsFile(projectDir, "build.gradle"))
-            throw new BuildException("build.gradle not found in project directory: [" + projectDir.toAbsolutePath() + "].");
-        if (FileHelper.containsFile(projectDir, "gradlew"))
-            throw new BuildException("gradle wrapper already installed");
+        assertProjectDir(projectDir);
+        assertBuildGradleFile(projectDir);
+        assertNoGradleWrapper(projectDir);
 
-        BuildContext buildContext = ExecutionContext.getGradleExecutionContext();
+        BuildProcess.execute(
+                projectDir,
+                new String[]{"gradle", "--console=plain", "wrapper"},
+                logger,
+                "Installing gradle wrapper failed."
+        );
 
-        String[] commandWrapper = {"gradle", "--console=plain", "wrapper"};
-        userOutput(buildContext, commandWrapper);
-        ProcessResultCollection result;
-        try{
-            result = executeProcess(
-                    projectDir,
-                    buildContext.getLogger(),
-                    buildContext.isVerbose(),
-                    commandWrapper
-            );
-        } catch (ProcessExecutionException e) {
-            throw new BuildException("Installing gradle wrapper failed: " + e.getMessage(), e);
-        }
-        if (result.isFail()) throw createException(result);
-
-        String[] commandVersion = {"gradle", "--version"};
-        userOutput(buildContext, commandVersion);
-        try{
-            result = executeProcess(
-                    projectDir,
-                    buildContext.getLogger(),
-                    buildContext.isVerbose(),
-                    commandVersion
-            );
-        } catch (ProcessExecutionException e) {
-            throw new BuildException("Installing gradle wrapper failed: " + e.getMessage(), e);
-        }
-        if (result.isFail()) throw createException(result);
-    }
-
-
-    private static ProcessResultCollection executeProcess(Path projectDir, Logger logger, boolean verbose, String... commands) throws ProcessExecutionException {
-        GeneralStandardOutHandler stdOutHandler = new GeneralStandardOutHandler(logger, verbose);
-        GeneralStandardErrorHandler stdErrorHandler = new GeneralStandardErrorHandler(logger, verbose);
-        ProcessExecutor processExecutor = new ProcessExecutorBuilder()
-                .withWorkingDirectory(projectDir)
-                .withCommands(commands)
-                .withStandardOutHandler(stdOutHandler)
-                .withStandardErrorHandler(stdErrorHandler)
-                .build();
-
-        processExecutor.execute();
-
-        return new ProcessResultCollection(
-                processExecutor, stdOutHandler, stdErrorHandler
+        BuildProcess.execute(
+                projectDir,
+                new String[]{getGradleWrapperCommandAbsolute(projectDir), "--version"},
+                logger,
+                "Installing gradle wrapper failed."
         );
     }
 
-    public static void userOutput(BuildContext buildContext, String... commands) {
-        userOutput(buildContext, Arrays.asList(commands));
+    private static String getGradleWrapperCommandAbsolute(Path projectDir) {
+        return projectDir.resolve("gradlew").toAbsolutePath().toString();
     }
 
-    public static void userOutput(BuildContext buildContext, List<String> commands) {
-        String commandString = "> " + Strings.listing(commands, " ");
-        logger.info(commandString);
-        if (buildContext.isVerbose()) System.out.println(commandString);
+    private static void assertProjectDir(Path projectDir) throws BuildException {
+        if (!FileUtils.isExistingDirectory(projectDir))
+            throw new BuildException("Project directory not found: [" + projectDir.toAbsolutePath() + "].");
     }
 
-    private static BuildException createException(ProcessResultCollection result) {
-        if (result.isSuccess()) throw new IllegalStateException("Docker process not failed.");
-        if (!result.getErrorOut().isEmpty()) {
-            return new BuildException(result.getErrorOut().get(0));
-        } else {
-            return new BuildException();
-        }
+    private static void assertBuildGradleFile(Path projectDir) throws BuildException {
+        if (!FileHelper.containsFile(projectDir, "build.gradle"))
+            throw new BuildException("build.gradle not found in project directory: [" + projectDir.toAbsolutePath() + "].");
+    }
+
+    private static void assertNoGradleWrapper(Path projectDir) throws BuildException {
+        if (FileHelper.containsFile(projectDir, "gradlew"))
+            throw new BuildException("gradle wrapper already installed");
     }
 
 }

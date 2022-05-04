@@ -23,18 +23,17 @@ public class Tasks {
         }
 
         Task buildTask = new TaskBuilder()
-                .name(targetName)
-                .dependencies(targetName + "-" + Objects.requireNonNull(lastProject).getName())
-                .isTarget()
-                .execute(() -> {})
+                .withName(targetName)
+                .withDependencies(targetName + "-" + Objects.requireNonNull(lastProject).getName())
+                .asTarget()
+                .asMetaTask()
                 .build();
         taskRegistryBuilder.withTask(buildTask);
     }
 
-
     public static Task createProjectTask(String targetName, Project project, Project dependentProject) {
         TaskBuilder taskBuilder = new TaskBuilder()
-                .name(targetName + "-" + project.getName());
+                .withName(targetName + "-" + project.getName());
 
         switch (targetName) {
             case "reset":
@@ -53,7 +52,7 @@ public class Tasks {
         }
 
         if (dependentProject != null) {
-            taskBuilder.dependencies(targetName + "-" + dependentProject.getName());
+            taskBuilder.withDependencies(targetName + "-" + dependentProject.getName());
         }
         return taskBuilder.build();
     }

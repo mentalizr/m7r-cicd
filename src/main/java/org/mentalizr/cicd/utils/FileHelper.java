@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNull;
+import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNullAndNotEmpty;
 
 public class FileHelper {
 
@@ -30,8 +31,13 @@ public class FileHelper {
         return FileUtils.isExistingRegularFile(filePath);
     }
 
-    public static void rm(Path file) {
-
+    public static boolean containsDirectory(Path dir, String dirname) {
+        assertArgumentNotNull("dir", dir);
+        assertArgumentNotNullAndNotEmpty("dirname", dirname);
+        if (!FileUtils.isExistingDirectory(dir))
+            throw new IllegalArgumentException("Specified directory not found: [" + dir.toAbsolutePath() + "].");
+        Path subDir = dir.resolve(dirname);
+        return (FileUtils.isExistingDirectory(subDir));
     }
 
 }

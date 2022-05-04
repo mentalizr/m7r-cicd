@@ -22,15 +22,19 @@ public class InitExecutor implements CommandExecutor {
         System.out.println("initialize all projects ...");
 
         ProjectRegistry projectRegistry = Projects.create();
-        TaskRegistryBuilder taskRegistryBuilder = new TaskRegistryBuilder();
-        InitTasks.create(taskRegistryBuilder, projectRegistry);
-        TaskRegistry taskRegistry = taskRegistryBuilder.build();
-
-
-        TaskRunner taskRunner = StandardTaskRunner.create(taskRegistry, true, 33);
-        TaskRunnerResult result = taskRunner.run("init");
+        TaskRegistry taskRegistry = createTaskRegistry(projectRegistry);
+        TaskRunnerResult result =
+                StandardTaskRunner
+                        .create(taskRegistry, true, 33)
+                        .run("init");
 
         if (!result.isSuccess()) throw new CommandExecutorException();
+    }
+
+    private TaskRegistry createTaskRegistry(ProjectRegistry projectRegistry) {
+        TaskRegistryBuilder taskRegistryBuilder = new TaskRegistryBuilder();
+        InitTasks.create(taskRegistryBuilder, projectRegistry);
+        return taskRegistryBuilder.build();
     }
 
 }

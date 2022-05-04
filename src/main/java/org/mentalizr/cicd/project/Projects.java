@@ -8,6 +8,7 @@ public class Projects {
 
         ProjectRegistry projectRegistry = new ProjectRegistry();
         projectRegistry.add(new ContentManagerCli());
+        projectRegistry.add(new WebComponents());
 
         return projectRegistry;
     }
