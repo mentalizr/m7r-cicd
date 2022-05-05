@@ -29,6 +29,10 @@ public class Gradle {
         executeGradleWrapper(projectDir, GradleTask.EXTRACT_DEPENDENCIES);
     }
 
+    public static void war(Path projectDir) throws BuildException {
+        executeGradleWrapper(projectDir, GradleTask.WAR);
+    }
+
     public static void clean(Path projectDir) throws BuildException {
         executeGradleWrapper(projectDir, GradleTask.CLEAN);
     }
@@ -40,6 +44,7 @@ public class Gradle {
     public static void reset(Path projectDir) {
         FileUtils.rmDirSilently(projectDir.resolve("build"));
         FileUtils.rmDirSilently(projectDir.resolve("gradle"));
+        FileUtils.rmDirSilently(projectDir.resolve(".gradle"));
         FileUtils.forceDeleteSilently(projectDir.resolve("gradlew"));
         FileUtils.forceDeleteSilently(projectDir.resolve("gradlew.bat"));
     }

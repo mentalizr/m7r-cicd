@@ -6,7 +6,8 @@ public enum GradleTask {
     JAR("jar"),
     FATJAR("fatJar"),
     EXTRACT_DEPENDENCIES("extractDependencies"),
-    CLEAN("clean");
+    CLEAN("clean"),
+    WAR("war");
 
     private final String gradleTaskLiteral;
 

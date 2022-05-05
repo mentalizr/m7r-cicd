@@ -38,7 +38,7 @@ public abstract class GradleProject extends Project {
     }
 
     @Override
-    public void reset() {
+    public void reset() throws TaskExecutionException {
         Gradle.reset(this.projectDir);
     }
 
