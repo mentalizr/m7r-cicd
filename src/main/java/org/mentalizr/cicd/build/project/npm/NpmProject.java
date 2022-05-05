@@ -31,16 +31,6 @@ public abstract class NpmProject extends Project {
     }
 
     @Override
-    public void clean() throws TaskExecutionException {
-        // din
-    }
-
-    @Override
-    public void build() {
-        // TODO
-    }
-
-    @Override
     public void reset() {
         Npm.reset(this.projectDir);
     }

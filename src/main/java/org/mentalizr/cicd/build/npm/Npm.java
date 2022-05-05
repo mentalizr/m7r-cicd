@@ -34,6 +34,21 @@ public class Npm {
         );
     }
 
+    public static void executeNpmBin(Path projectDir, String command) throws BuildException {
+        assertProjectDir(projectDir);
+        assertPackageJsonFile(projectDir);
+
+        String npmBinCommandAbsolute =
+                projectDir.resolve("node_modules").resolve(".bin").resolve(command)
+                        .toAbsolutePath().toString();
+        BuildProcess.execute(
+                projectDir,
+                new String[]{npmBinCommandAbsolute},
+                logger,
+                "npm local .bin call failed: " + npmBinCommandAbsolute
+        );
+    }
+
     private static void assertProjectDir(Path projectDir) throws BuildException {
         if (!FileUtils.isExistingDirectory(projectDir))
             throw new BuildException("Project directory not found: [" + projectDir.toAbsolutePath() + "].");

@@ -15,6 +15,7 @@ public class Projects {
         projectRegistry.add(new ServiceObjects());
         projectRegistry.add(new ContentManagerCli());
         projectRegistry.add(new WebComponents());
+        projectRegistry.add(new Frontend());
         projectRegistry.add(new Backend());
 
         return projectRegistry;
