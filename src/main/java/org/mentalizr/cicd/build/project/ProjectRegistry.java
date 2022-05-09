@@ -1,5 +1,7 @@
 package org.mentalizr.cicd.build.project;
 
+import org.mentalizr.cicd.projectModel.Project;
+
 import java.util.*;
 
 public class ProjectRegistry {

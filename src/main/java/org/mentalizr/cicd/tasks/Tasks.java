@@ -3,7 +3,7 @@ package org.mentalizr.cicd.tasks;
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
 import de.arthurpicht.taskRunner.taskRegistry.TaskRegistryBuilder;
-import org.mentalizr.cicd.build.project.Project;
+import org.mentalizr.cicd.projectModel.Project;
 import org.mentalizr.cicd.build.project.ProjectRegistry;
 
 import java.util.List;
