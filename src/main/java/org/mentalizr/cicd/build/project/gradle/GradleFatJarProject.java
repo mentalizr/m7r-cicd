@@ -8,14 +8,10 @@ import java.nio.file.Path;
 
 public abstract class GradleFatJarProject extends GradleProject {
 
-    public GradleFatJarProject(Path projectDir) {
-        super(projectDir);
-    }
-
     @Override
     public void build() throws TaskExecutionException {
         try {
-            Gradle.fatJar(this.getProjectDir());
+            Gradle.fatJar(this.getDir());
         } catch (BuildException e) {
             throw new TaskExecutionException(e.getMessage(), e);
         }

@@ -6,18 +6,12 @@ import org.mentalizr.cicd.build.gradle.Gradle;
 import org.mentalizr.cicd.projectModel.Project;
 import org.mentalizr.cicd.utils.FileHelper;
 
-import java.nio.file.Path;
-
 public abstract class GradleProject extends Project {
-
-    public GradleProject(Path projectDir) {
-        super(projectDir);
-    }
 
     @Override
     public void init() throws TaskExecutionException {
         try {
-            Gradle.init(this.projectDir);
+            Gradle.init(this.getDir());
         } catch (BuildException e) {
             throw new TaskExecutionException(e.getMessage(), e);
         }
@@ -25,13 +19,13 @@ public abstract class GradleProject extends Project {
 
     @Override
     public boolean isInitialized() {
-        return FileHelper.containsFile(this.projectDir, "gradlew");
+        return FileHelper.containsFile(this.getDir(), "gradlew");
     }
 
     @Override
     public void clean() throws TaskExecutionException {
         try {
-            Gradle.clean(this.projectDir);
+            Gradle.clean(this.getDir());
         } catch (BuildException e) {
             throw new TaskExecutionException(e.getMessage(), e);
         }
@@ -39,7 +33,7 @@ public abstract class GradleProject extends Project {
 
     @Override
     public void reset() throws TaskExecutionException {
-        Gradle.reset(this.projectDir);
+        Gradle.reset(this.getDir());
     }
 
 }

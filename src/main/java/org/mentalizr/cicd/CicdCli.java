@@ -12,6 +12,7 @@ import de.arthurpicht.cli.option.VersionOption;
 import org.mentalizr.cicd.appInit.AppInit;
 import org.mentalizr.cicd.executors.BuildExecutor;
 import org.mentalizr.cicd.executors.InitExecutor;
+import org.mentalizr.cicd.executors.LogsExecutor;
 import org.mentalizr.cicd.executors.ResetExecutor;
 
 public class CicdCli {
@@ -19,6 +20,8 @@ public class CicdCli {
     public static final String OPTION_VERBOSE = "verbose";
     public static final String OPTION_STACKTRACE = "stacktrace";
     public static final String OPTION_SILENT = "silent";
+
+    public static final String SPECIFIC_OPTION_FOLLOW = "follow";
 
     private static Cli createCli() {
         Options globalOptions = new Options()
@@ -53,9 +56,21 @@ public class CicdCli {
                 .build()
         );
 
+        Options specificLogsOptions = new Options()
+                .add(new OptionBuilder().withShortName('f').withLongName("follow").withDescription("Follow logs.").build(SPECIFIC_OPTION_FOLLOW));
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("logs")
+                .withSpecificOptions(specificLogsOptions)
+                .withCommandExecutor(new LogsExecutor())
+                .withDescription("Show logs.")
+                .build()
+        );
+
+
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra CICD functions\nhttps://github.com/mentalizr/m7r-cicd")
-                .withVersionByTag("0.0.1-SNAPSHOT", "2022-03-03")
+                .withVersionByTag("0.0.1-SNAPSHOT", "2022-05-10")
                 .build("m7r-cicd");
 
         return new CliBuilder()
@@ -93,14 +108,6 @@ public class CicdCli {
             if (showStacktrace) e.printStackTrace();
             System.exit(1);
         }
-
-//        ProjectRegistry projectRegistry = Projects.create();
-//        TaskRegistry taskRegistry = Tasks.create(projectRegistry);
-//
-//        TaskRunner taskRunner = StandardTaskRunner.create(taskRegistry, true, 33);
-//        TaskRunnerResult result = taskRunner.run("build");
-//
-//        System.out.println("CICD");
     }
 
 }

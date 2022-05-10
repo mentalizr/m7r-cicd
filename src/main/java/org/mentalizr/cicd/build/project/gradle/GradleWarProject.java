@@ -8,14 +8,10 @@ import java.nio.file.Path;
 
 public abstract class GradleWarProject extends GradleProject {
 
-    public GradleWarProject(Path projectDir) {
-        super(projectDir);
-    }
-
     @Override
     public void build() throws TaskExecutionException {
         try {
-            Gradle.war(this.getProjectDir());
+            Gradle.war(this.getDir());
         } catch (BuildException e) {
             throw new TaskExecutionException(e.getMessage(), e);
         }

@@ -2,11 +2,15 @@ package org.mentalizr.cicd.project;
 
 import org.mentalizr.cicd.build.project.gradle.GradleJarProject;
 import org.mentalizr.commons.paths.build.ServiceObjectsDir;
+import org.mentalizr.commons.paths.host.GitReposDir;
+
+import java.nio.file.Path;
 
 public class ServiceObjects extends GradleJarProject {
 
-    public ServiceObjects() {
-        super(new ServiceObjectsDir().asPath());
+    @Override
+    public Path getDir() {
+        return GitReposDir.createInstance().asPath().resolve("core/m7r-service-objects");
     }
 
 }

@@ -10,14 +10,10 @@ import java.nio.file.Path;
 
 public abstract class NpmProject extends Project {
 
-    public NpmProject(Path projectDir) {
-        super(projectDir);
-    }
-
     @Override
     public void init() throws TaskExecutionException {
         try {
-            Npm.install(this.projectDir);
+            Npm.install(this.getDir());
         } catch (BuildException e) {
             throw new TaskExecutionException(e.getMessage(), e);
         }
@@ -25,12 +21,12 @@ public abstract class NpmProject extends Project {
 
     @Override
     public boolean isInitialized() {
-        return FileHelper.containsDirectory(this.projectDir, "node_modules");
+        return FileHelper.containsDirectory(this.getDir(), "node_modules");
     }
 
     @Override
     public void reset() {
-        Npm.reset(this.projectDir);
+        Npm.reset(this.getDir());
     }
 
 }

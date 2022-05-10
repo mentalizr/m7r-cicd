@@ -8,17 +8,21 @@ import org.mentalizr.cicd.build.project.gradle.GradleFatJarProject;
 import org.mentalizr.cicd.build.project.npm.NpmProject;
 import org.mentalizr.commons.paths.build.ContentManagerCliDir;
 import org.mentalizr.commons.paths.build.WebComponentsDir;
+import org.mentalizr.commons.paths.host.GitReposDir;
+
+import java.nio.file.Path;
 
 public class WebComponents extends NpmProject {
 
-    public WebComponents() {
-        super(new WebComponentsDir().asPath());
+    @Override
+    public Path getDir() {
+        return GitReposDir.createInstance().asPath().resolve("core/m7r-web-components");
     }
 
     @Override
     public void build() throws TaskExecutionException {
         try {
-            Npm.executeNpmBin(this.projectDir, "tsc");
+            Npm.executeNpmBin(this.getDir(), "tsc");
         } catch (BuildException e) {
             throw new TaskExecutionException(e.getMessage(), e);
         }
@@ -26,7 +30,7 @@ public class WebComponents extends NpmProject {
 
     @Override
     public void clean() throws TaskExecutionException {
-        FileUtils.forceDeleteSilently(this.projectDir.resolve("dist"));
+        FileUtils.forceDeleteSilently(this.getDir().resolve("dist"));
     }
 
 }

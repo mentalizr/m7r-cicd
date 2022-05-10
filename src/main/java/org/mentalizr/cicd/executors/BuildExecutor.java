@@ -11,6 +11,7 @@ import de.arthurpicht.taskRunner.taskRegistry.TaskRegistryBuilder;
 import org.mentalizr.cicd.ExecutionContext;
 import org.mentalizr.cicd.build.project.ProjectRegistry;
 import org.mentalizr.cicd.project.Projects;
+import org.mentalizr.cicd.projectModel.ProjectModel;
 import org.mentalizr.cicd.tasks.BuildTasks;
 import org.mentalizr.cicd.tasks.InitTasks;
 import org.mentalizr.cicd.tasks.Tasks;
@@ -23,11 +24,11 @@ public class BuildExecutor implements CommandExecutor {
 
         System.out.println("build all projects ...");
 
-        ProjectRegistry projectRegistry = Projects.create();
+        ProjectModel projectModel = Projects.create();
 
         TaskRegistryBuilder taskRegistryBuilder = new TaskRegistryBuilder();
-        InitTasks.create(taskRegistryBuilder, projectRegistry);
-        BuildTasks.create(taskRegistryBuilder, projectRegistry);
+        InitTasks.create(taskRegistryBuilder, projectModel);
+        BuildTasks.create(taskRegistryBuilder, projectModel);
         TaskRegistry taskRegistry = taskRegistryBuilder.build();
 
         TaskRunner taskRunner = StandardTaskRunner.create(taskRegistry, true, 33);

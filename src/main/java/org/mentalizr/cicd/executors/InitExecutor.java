@@ -11,6 +11,7 @@ import de.arthurpicht.taskRunner.taskRegistry.TaskRegistryBuilder;
 import org.mentalizr.cicd.ExecutionContext;
 import org.mentalizr.cicd.build.project.ProjectRegistry;
 import org.mentalizr.cicd.project.Projects;
+import org.mentalizr.cicd.projectModel.ProjectModel;
 import org.mentalizr.cicd.tasks.InitTasks;
 
 public class InitExecutor implements CommandExecutor {
@@ -21,8 +22,8 @@ public class InitExecutor implements CommandExecutor {
 
         System.out.println("initialize all projects ...");
 
-        ProjectRegistry projectRegistry = Projects.create();
-        TaskRegistry taskRegistry = createTaskRegistry(projectRegistry);
+        ProjectModel projectModel = Projects.create();
+        TaskRegistry taskRegistry = createTaskRegistry(projectModel);
         TaskRunnerResult result =
                 StandardTaskRunner
                         .create(taskRegistry, true, 33)
@@ -31,9 +32,9 @@ public class InitExecutor implements CommandExecutor {
         if (!result.isSuccess()) throw new CommandExecutorException();
     }
 
-    private TaskRegistry createTaskRegistry(ProjectRegistry projectRegistry) {
+    private TaskRegistry createTaskRegistry(ProjectModel projectModel) {
         TaskRegistryBuilder taskRegistryBuilder = new TaskRegistryBuilder();
-        InitTasks.create(taskRegistryBuilder, projectRegistry);
+        InitTasks.create(taskRegistryBuilder, projectModel);
         return taskRegistryBuilder.build();
     }
 

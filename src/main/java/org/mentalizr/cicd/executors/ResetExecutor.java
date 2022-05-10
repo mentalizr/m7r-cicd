@@ -11,6 +11,7 @@ import de.arthurpicht.taskRunner.taskRegistry.TaskRegistryBuilder;
 import org.mentalizr.cicd.ExecutionContext;
 import org.mentalizr.cicd.build.project.ProjectRegistry;
 import org.mentalizr.cicd.project.Projects;
+import org.mentalizr.cicd.projectModel.ProjectModel;
 import org.mentalizr.cicd.tasks.ResetTasks;
 
 public class ResetExecutor implements CommandExecutor {
@@ -21,9 +22,9 @@ public class ResetExecutor implements CommandExecutor {
 
         System.out.println("reset all projects ...");
 
-        ProjectRegistry projectRegistry = Projects.create();
+        ProjectModel projectModel = Projects.create();
         TaskRegistryBuilder taskRegistryBuilder = new TaskRegistryBuilder();
-        ResetTasks.create(taskRegistryBuilder, projectRegistry);
+        ResetTasks.create(taskRegistryBuilder, projectModel);
         TaskRegistry taskRegistry = taskRegistryBuilder.build();
 
         TaskRunner taskRunner = StandardTaskRunner.create(taskRegistry, true, 33);
