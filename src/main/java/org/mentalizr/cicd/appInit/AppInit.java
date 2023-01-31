@@ -13,7 +13,7 @@ public class AppInit {
     }
 
     private static void initLogging() {
-        M7rCicdLogFile m7rCicdLogFile = M7rCicdLogFile.createInstance();
+        M7rCicdLogFile m7rCicdLogFile = new M7rCicdLogFile();
         Path logFile = m7rCicdLogFile.asPath();
         LoggerInit.consoleAndFile(logFile, Level.DEBUG, Level.OFF);
     }

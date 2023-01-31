@@ -10,7 +10,6 @@ import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.cicd.CicdCli;
 import org.mentalizr.cicd.ExecutionContext;
 import org.mentalizr.commons.paths.host.hostDir.M7rCicdLogFile;
-import org.mentalizr.commons.paths.host.hostDir.M7rHostLogFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +27,7 @@ public class LogsExecutor implements CommandExecutor {
 
         System.out.println("Show logs ...");
 
-        Path logFile = M7rCicdLogFile.createInstance().asPath();
+        Path logFile = new M7rCicdLogFile().asPath();
         if (!FileUtils.isExistingRegularFile(logFile))
             throw new CommandExecutorException("Log file not found: [" + logFile.toAbsolutePath() + "].");
 
