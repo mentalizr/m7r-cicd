@@ -19,15 +19,15 @@ repositories {
 dependencies {
     implementation 'org.mentalizr:m7r-commons:0.0.1-SNAPSHOT'
     implementation 'com.github.arthurpicht:utils-core:1.13.0'
-    implementation 'com.github.arthurpicht:utils-io:0.0.17'
+    implementation 'com.github.arthurpicht:utils-io:0.0.18'
     implementation 'com.github.arthurpicht:utils-logging:0.0.1'
     implementation 'com.github.arthurpicht:cli:0.1.2'
     implementation 'com.github.arthurpicht:utils-struct:0.0.4'
     implementation 'com.github.arthurpicht:processExecutor:0.0.4'
     implementation 'com.github.arthurpicht:taskRunner:0.0.4'
-    implementation 'ch.qos.logback:logback-classic:1.4.7'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 
 test {
@@ -43,3 +43,5 @@ tasks.register('extractDependencies', Copy) {
 tasks.register('tool') {
     dependsOn extractDependencies
 }
+
+defaultTasks 'extractDependencies'
