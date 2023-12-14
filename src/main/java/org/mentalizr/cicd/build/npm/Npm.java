@@ -19,7 +19,7 @@ public class Npm {
     }
 
     public static void reset(Path projectDir) {
-        FileUtils.forceDeleteSilently(projectDir.resolve("node-modules"));
+        FileUtils.forceDeleteSilently(projectDir.resolve("node_modules"));
     }
 
     private static void executeNpm(Path projectDir, NpmTask npmTask) throws BuildException {
