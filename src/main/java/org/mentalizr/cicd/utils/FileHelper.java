@@ -20,7 +20,7 @@ public class FileHelper {
     public static boolean containsFile(Path dir, String filename) {
         assertArgumentNotNull("dir", dir);
         assertArgumentNotNull("filename", filename);
-        if (filename.equals(""))
+        if (filename.isEmpty())
             throw new IllegalArgumentException("Specified file name is empty.");
         if (!FileUtils.isExistingDirectory(dir))
             throw new IllegalArgumentException("Specified directory not found: [" + dir.toAbsolutePath() + "].");

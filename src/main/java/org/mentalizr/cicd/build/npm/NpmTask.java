@@ -6,7 +6,7 @@ public enum NpmTask {
 
     private final String taskLiteral;
 
-    private NpmTask(String taskLiteral) {
+    NpmTask(String taskLiteral) {
         this.taskLiteral = taskLiteral;
     }
 

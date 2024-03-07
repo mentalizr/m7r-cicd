@@ -6,8 +6,6 @@ import org.mentalizr.cicd.build.npm.Npm;
 import org.mentalizr.cicd.projectModel.Project;
 import org.mentalizr.cicd.utils.FileHelper;
 
-import java.nio.file.Path;
-
 public abstract class NpmProject extends Project {
 
     @Override

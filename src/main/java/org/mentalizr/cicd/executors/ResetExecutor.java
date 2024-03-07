@@ -9,7 +9,6 @@ import de.arthurpicht.taskRunner.runner.standard.StandardTaskRunner;
 import de.arthurpicht.taskRunner.taskRegistry.TaskRegistry;
 import de.arthurpicht.taskRunner.taskRegistry.TaskRegistryBuilder;
 import org.mentalizr.cicd.ExecutionContext;
-import org.mentalizr.cicd.build.project.ProjectRegistry;
 import org.mentalizr.cicd.project.Projects;
 import org.mentalizr.cicd.projectModel.ProjectModel;
 import org.mentalizr.cicd.tasks.ResetTasks;

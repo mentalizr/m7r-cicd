@@ -4,10 +4,7 @@ import de.arthurpicht.taskRunner.task.TaskExecutionException;
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.cicd.build.BuildException;
 import org.mentalizr.cicd.build.npm.Npm;
-import org.mentalizr.cicd.build.project.gradle.GradleFatJarProject;
 import org.mentalizr.cicd.build.project.npm.NpmProject;
-import org.mentalizr.commons.paths.build.ContentManagerCliDir;
-import org.mentalizr.commons.paths.build.WebComponentsDir;
 import org.mentalizr.commons.paths.host.GitReposDir;
 
 import java.nio.file.Path;

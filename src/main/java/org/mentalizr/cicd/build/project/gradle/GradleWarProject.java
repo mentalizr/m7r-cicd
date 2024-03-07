@@ -4,8 +4,6 @@ import de.arthurpicht.taskRunner.task.TaskExecutionException;
 import org.mentalizr.cicd.build.BuildException;
 import org.mentalizr.cicd.build.gradle.Gradle;
 
-import java.nio.file.Path;
-
 public abstract class GradleWarProject extends GradleProject {
 
     @Override

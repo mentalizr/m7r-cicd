@@ -11,7 +11,7 @@ public enum GradleTask {
 
     private final String gradleTaskLiteral;
 
-    private GradleTask(String gradleTaskLiteral) {
+    GradleTask(String gradleTaskLiteral) {
         this.gradleTaskLiteral = gradleTaskLiteral;
     }
 

@@ -1,7 +1,6 @@
 package org.mentalizr.cicd.project;
 
 import de.arthurpicht.utils.core.collection.Sets;
-import org.mentalizr.cicd.build.project.gradle.GradleFatJarProject;
 import org.mentalizr.cicd.build.project.gradle.GradleToolJarProject;
 import org.mentalizr.commons.paths.host.GitReposDir;
 

@@ -29,8 +29,4 @@ public class ProjectModel {
         return projectList;
     }
 
-//    public List<String> getSortedProjects(String entryPointId) {
-//        return this.dagManager.getElementIdsInTopologicalSort(entryPointId);
-//    }
-
 }

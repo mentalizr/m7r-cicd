@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ProjectRegistry {
 
-    private Map<String, Project> projectMap;
+    private final Map<String, Project> projectMap;
 
     public ProjectRegistry() {
         this.projectMap = new LinkedHashMap<>();

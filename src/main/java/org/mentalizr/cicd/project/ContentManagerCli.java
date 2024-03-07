@@ -2,11 +2,9 @@ package org.mentalizr.cicd.project;
 
 import de.arthurpicht.utils.core.collection.Sets;
 import org.mentalizr.cicd.build.project.gradle.GradleFatJarProject;
-import org.mentalizr.commons.paths.build.ContentManagerCliDir;
 import org.mentalizr.commons.paths.host.GitReposDir;
 
 import java.nio.file.Path;
-import java.util.HashSet;
 import java.util.Set;
 
 public class ContentManagerCli extends GradleFatJarProject {
