@@ -67,10 +67,9 @@ public class CicdCli {
                 .build()
         );
 
-
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra CICD functions\nhttps://github.com/mentalizr/m7r-cicd")
-                .withVersionByTag("0.0.1-SNAPSHOT", "2022-05-10")
+                .withVersionByTag("0.0.1-SNAPSHOT", "2023-03-07")
                 .build("m7r-cicd");
 
         return new CliBuilder()

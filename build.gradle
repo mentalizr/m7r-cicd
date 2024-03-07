@@ -5,12 +5,6 @@ plugins {
 group 'org.mentalizr'
 version '0.0.1-SNAPSHOT'
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
@@ -25,9 +19,9 @@ dependencies {
     implementation 'com.github.arthurpicht:utils-struct:0.0.4'
     implementation 'com.github.arthurpicht:processExecutor:0.0.4'
     implementation 'com.github.arthurpicht:taskRunner:0.0.4'
-    implementation 'ch.qos.logback:logback-classic:1.4.11'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    implementation 'ch.qos.logback:logback-classic:1.4.14'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
 }
 
 test {
@@ -44,4 +38,4 @@ tasks.register('tool') {
     dependsOn extractDependencies
 }
 
-defaultTasks 'extractDependencies'
+defaultTasks 'tool'

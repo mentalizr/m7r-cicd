@@ -25,8 +25,9 @@ public class Mentalizr extends Project {
                 "m7r-frontend",
                 "m7r-backend",
                 "m7r-infra",
+                "m7r-provisioning",
                 "content"
-                );
+        );
     }
 
     @Override

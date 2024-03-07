@@ -24,6 +24,7 @@ public class Projects {
                 .withProject(new Cli())
                 .withProject(new Infra())
                 .withProject(new Content())
+                .withProject(new Provisioning())
                 .build();
     }
 
