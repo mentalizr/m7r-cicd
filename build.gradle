@@ -13,11 +13,11 @@ repositories {
 dependencies {
     implementation 'org.mentalizr:m7r-commons:0.0.1-SNAPSHOT'
     implementation 'com.github.arthurpicht:utils-core:1.13.0'
-    implementation 'com.github.arthurpicht:utils-io:0.0.18'
+    implementation 'com.github.arthurpicht:utils-io:0.0.20'
     implementation 'com.github.arthurpicht:utils-logging:0.0.1'
     implementation 'com.github.arthurpicht:cli:0.1.2'
     implementation 'com.github.arthurpicht:utils-struct:0.0.4'
-    implementation 'com.github.arthurpicht:processExecutor:0.0.5'
+    implementation 'com.github.arthurpicht:processExecutor:0.0.6'
     implementation 'com.github.arthurpicht:taskRunner:0.0.4'
     implementation 'ch.qos.logback:logback-classic:1.4.14'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
