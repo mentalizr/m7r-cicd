@@ -59,8 +59,6 @@ public class Gradle {
                 logger,
                 "Gradle build failed."
         );
-
-//        String[] commands = {"bash", "-c", gradleCommand};
     }
 
     private static void installGradleWrapper(Path projectDir) throws BuildException {
