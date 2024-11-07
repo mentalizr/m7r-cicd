@@ -33,6 +33,7 @@ public abstract class GradleProject extends Project {
 
     @Override
     public void reset() throws TaskExecutionException {
+        if (Gradle.hasGradleWrapper(getDir())) clean();
         Gradle.reset(this.getDir());
     }
 

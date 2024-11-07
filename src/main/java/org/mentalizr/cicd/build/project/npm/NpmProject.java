@@ -23,7 +23,8 @@ public abstract class NpmProject extends Project {
     }
 
     @Override
-    public void reset() {
+    public void reset() throws TaskExecutionException {
+        clean();
         Npm.reset(this.getDir());
     }
 

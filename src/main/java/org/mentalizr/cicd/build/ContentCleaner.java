@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-public class ContentReset {
+public class ContentCleaner {
 
-    public static void reset(Path contentDir) throws BuildException {
+    public static void clean(Path contentDir) throws BuildException {
         try {
             List<Path> programDirs = FileUtils.getSubdirectoriesNotEndingWithTilde(contentDir);
             for (Path programDir : programDirs) {

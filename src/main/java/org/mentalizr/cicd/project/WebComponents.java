@@ -27,6 +27,8 @@ public class WebComponents extends NpmProject {
 
     @Override
     public void clean() throws TaskExecutionException {
+        FileUtils.forceDeleteSilently(this.getDir().resolve("js-out"));
+        // to be strict: directory dist is only created when webpack is called manually
         FileUtils.forceDeleteSilently(this.getDir().resolve("dist"));
     }
 

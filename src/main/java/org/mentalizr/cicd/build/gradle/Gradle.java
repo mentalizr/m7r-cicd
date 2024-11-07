@@ -13,6 +13,10 @@ public class Gradle {
 
     private static final Logger logger = LoggerFactory.getLogger("gradle");
 
+    public static boolean hasGradleWrapper(Path projectDir) {
+        return FileHelper.containsFile(projectDir, "gradlew");
+    }
+
     public static void build(Path projectDir) throws BuildException {
         executeGradleWrapper(projectDir, GradleTask.BUILD);
     }
@@ -52,6 +56,7 @@ public class Gradle {
     private static void executeGradleWrapper(Path projectDir, GradleTask gradleTask) throws BuildException {
         assertProjectDir(projectDir);
         assertBuildGradleFile(projectDir);
+        assertGradleWrapper(projectDir);
 
         BuildProcess.execute(
                 projectDir,
@@ -92,12 +97,20 @@ public class Gradle {
 
     private static void assertBuildGradleFile(Path projectDir) throws BuildException {
         if (!FileHelper.containsFile(projectDir, "build.gradle"))
-            throw new BuildException("build.gradle not found in project directory: [" + projectDir.toAbsolutePath() + "].");
+            throw new BuildException("build.gradle not found in project directory: " +
+                    "[" + projectDir.toAbsolutePath() + "].");
     }
 
     private static void assertNoGradleWrapper(Path projectDir) throws BuildException {
-        if (FileHelper.containsFile(projectDir, "gradlew"))
-            throw new BuildException("gradle wrapper already installed");
+        if (hasGradleWrapper(projectDir))
+            throw new BuildException("gradle wrapper already installed in project directory: " +
+                    "[" + projectDir.toAbsolutePath() + "].");
+    }
+
+    private static void assertGradleWrapper(Path projectDir) throws BuildException {
+        if (!hasGradleWrapper(projectDir))
+            throw new BuildException("gradle wrapper not found in project directory: " +
+                    "[" + projectDir.toAbsolutePath() + "]. Consider executing init.");
     }
 
 }

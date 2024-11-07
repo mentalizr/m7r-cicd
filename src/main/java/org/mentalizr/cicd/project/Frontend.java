@@ -34,6 +34,8 @@ public class Frontend extends NpmProject {
 
     @Override
     public void clean() throws TaskExecutionException {
+        // js-out is not created when calling webpack, only if tsc was called manually
+        FileUtils.forceDeleteSilently(this.getDir().resolve("js-out"));
         FileUtils.forceDeleteSilently(this.getDir().resolve("dist"));
     }
     

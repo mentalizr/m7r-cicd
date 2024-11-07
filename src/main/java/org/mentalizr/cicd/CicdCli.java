@@ -10,10 +10,7 @@ import de.arthurpicht.cli.option.OptionBuilder;
 import de.arthurpicht.cli.option.Options;
 import de.arthurpicht.cli.option.VersionOption;
 import org.mentalizr.cicd.appInit.AppInit;
-import org.mentalizr.cicd.executors.BuildExecutor;
-import org.mentalizr.cicd.executors.InitExecutor;
-import org.mentalizr.cicd.executors.LogsExecutor;
-import org.mentalizr.cicd.executors.ResetExecutor;
+import org.mentalizr.cicd.executors.*;
 
 public class CicdCli {
 
@@ -36,9 +33,9 @@ public class CicdCli {
         commands.setDefaultCommand(new InfoDefaultCommand());
 
         commands.add(new CommandSequenceBuilder()
-                .addCommands("reset")
-                .withCommandExecutor(new ResetExecutor())
-                .withDescription("Resets all projects.")
+                .addCommands("init")
+                .withCommandExecutor(new InitExecutor())
+                .withDescription("Initializes all projects.")
                 .build()
         );
 
@@ -50,9 +47,16 @@ public class CicdCli {
         );
 
         commands.add(new CommandSequenceBuilder()
-                .addCommands("init")
-                .withCommandExecutor(new InitExecutor())
-                .withDescription("Initializes all projects.")
+                .addCommands("clean")
+                .withCommandExecutor(new CleanExecutor())
+                .withDescription("Cleans all projects.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("reset")
+                .withCommandExecutor(new ResetExecutor())
+                .withDescription("Removes transient artifacts except any .idea folder from all projects.")
                 .build()
         );
 

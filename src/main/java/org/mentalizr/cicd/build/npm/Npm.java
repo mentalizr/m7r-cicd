@@ -38,8 +38,13 @@ public class Npm {
         assertPackageJsonFile(projectDir);
 
         String npmBinCommandAbsolute =
-                projectDir.resolve("node_modules").resolve(".bin").resolve(command)
-                        .toAbsolutePath().toString();
+                projectDir
+                .resolve("node_modules")
+                .resolve(".bin")
+                .resolve(command)
+                .toAbsolutePath()
+                .toString();
+
         BuildProcess.execute(
                 projectDir,
                 new String[]{npmBinCommandAbsolute},

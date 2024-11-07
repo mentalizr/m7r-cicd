@@ -11,7 +11,11 @@ import java.util.Objects;
 
 public class Tasks {
 
-    public static void createMultiProjectTasks(String targetName, TaskRegistryBuilder taskRegistryBuilder, ProjectModel projectModel) {
+    public static void createMultiProjectTasks(
+            String targetName,
+            TaskRegistryBuilder taskRegistryBuilder,
+            ProjectModel projectModel) {
+
         List<Project> projectList = projectModel.getSortedProjects("m7r");
         if (projectList.isEmpty()) throw new IllegalStateException("No projects specified.");
 
@@ -37,18 +41,18 @@ public class Tasks {
                 .withName(targetName + "-" + project.getName());
 
         switch (targetName) {
-            case "reset":
-                taskBuilder.execute(project::reset);
-                break;
-            case "build":
-                taskBuilder.execute(project::build);
-                break;
             case "init":
                 taskBuilder.isUpToDate(project::isInitialized);
                 taskBuilder.execute(project::init);
                 break;
+            case "build":
+                taskBuilder.execute(project::build);
+                break;
             case "clean":
                 taskBuilder.execute(project::clean);
+                break;
+            case "reset":
+                taskBuilder.execute(project::reset);
                 break;
         }
 

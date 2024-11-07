@@ -4,7 +4,7 @@ import de.arthurpicht.taskRunner.task.TaskExecutionException;
 import de.arthurpicht.utils.core.collection.Sets;
 import org.mentalizr.cicd.build.BuildException;
 import org.mentalizr.cicd.build.CommandLineTool;
-import org.mentalizr.cicd.build.ContentReset;
+import org.mentalizr.cicd.build.ContentCleaner;
 import org.mentalizr.cicd.projectModel.Project;
 import org.mentalizr.commons.paths.host.GitReposDir;
 
@@ -37,15 +37,16 @@ public class Content extends Project {
 
     @Override
     public void clean() throws TaskExecutionException {
+        try {
+            ContentCleaner.clean(getDir());
+        } catch (BuildException e) {
+            throw new TaskExecutionException(e.getMessage(), e);
+        }
     }
 
     @Override
     public void reset() throws TaskExecutionException {
-        try {
-            ContentReset.reset(getDir());
-        } catch (BuildException e) {
-            throw new TaskExecutionException(e.getMessage(), e);
-        }
+        clean();
     }
 
 }
