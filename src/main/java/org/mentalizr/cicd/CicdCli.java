@@ -54,9 +54,23 @@ public class CicdCli {
         );
 
         commands.add(new CommandSequenceBuilder()
+                .addCommands("clean", "build")
+                .withCommandExecutor(new CleanBuildExecutor())
+                .withDescription("Cleans and builds all projects.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
                 .addCommands("reset")
                 .withCommandExecutor(new ResetExecutor())
                 .withDescription("Removes transient artifacts except any .idea folder from all projects.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("reset", "build")
+                .withCommandExecutor(new ResetBuildExecutor())
+                .withDescription("Resets and builds all projects.")
                 .build()
         );
 
