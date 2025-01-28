@@ -25,6 +25,7 @@ public class Projects {
                 .withProject(new Infra())
                 .withProject(new Content())
                 .withProject(new Provisioning())
+                .withProject(new Scheduler())
                 .build();
     }
 
