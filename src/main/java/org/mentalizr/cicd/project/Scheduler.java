@@ -1,11 +1,12 @@
 package org.mentalizr.cicd.project;
 
 import org.mentalizr.cicd.build.project.gradle.GradleJarProject;
+import org.mentalizr.cicd.build.project.gradle.GradleToolJarProject;
 import org.mentalizr.commons.paths.host.GitReposDir;
 
 import java.nio.file.Path;
 
-public class Scheduler extends GradleJarProject {
+public class Scheduler extends GradleToolJarProject {
 
     @Override
     public Path getDir() {
