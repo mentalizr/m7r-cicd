@@ -10,6 +10,7 @@ public class Projects {
         return new ProjectModelBuilder()
                 .withProject(new Mentalizr())
                 .withProject(new Commons())
+                .withProject(new Mailer())
                 .withProject(new BackendConfig())
                 .withProject(new BackendProc())
                 .withProject(new PersistenceMongo())
