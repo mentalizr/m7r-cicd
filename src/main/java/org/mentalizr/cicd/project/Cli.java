@@ -16,7 +16,7 @@ public class Cli extends GradleFatJarProject {
 
     @Override
     public Set<String> getDependencies() {
-        return Sets.newHashSet("m7r-service-objects");
+        return Sets.newHashSet("m7r-service-objects", "m7r-mailer");
     }
 
 }

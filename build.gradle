@@ -21,7 +21,7 @@ dependencies {
     implementation libs.ap.task.runner
     implementation libs.qos.logback
     testImplementation libs.junit.jupiter
-    testRuntimeOnly libs.junit.engine
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 test {
