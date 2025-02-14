@@ -22,8 +22,7 @@ public class Infra extends GradleToolJarProject {
                 "m7r-commons",
                 "m7r-persistence-mongo",
                 "m7r-persistence-rdbms",
-                "m7r-service-objects",
-                "m7r-scheduler");
+                "m7r-service-objects");
     }
 
 }
