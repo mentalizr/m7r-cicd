@@ -1,6 +1,8 @@
 package org.mentalizr.cicd.appInit;
 
 import ch.qos.logback.classic.Level;
+import de.arthurpicht.utils.logging.LogFile;
+import de.arthurpicht.utils.logging.LogbackInit;
 import de.arthurpicht.utils.logging.LoggerInit;
 import org.mentalizr.commons.paths.host.hostDir.M7rCicdLogFile;
 
@@ -15,7 +17,12 @@ public class AppInit {
     private static void initLogging() {
         M7rCicdLogFile m7rCicdLogFile = new M7rCicdLogFile();
         Path logFile = m7rCicdLogFile.asPath();
-        LoggerInit.consoleAndFile(logFile, Level.DEBUG, Level.OFF);
+        new LogbackInit()
+                .addLogFile(new LogFile.Builder()
+                        .withPath(logFile)
+                        .withLevel(Level.DEBUG)
+                        .build())
+                .initialize();
     }
 
 }
